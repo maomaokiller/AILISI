@@ -1,0 +1,323 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using CreativeSpore.Data;
+using UnityEngine;
+
+
+public class PlayerMove : MonoBehaviour
+{
+
+    //角色移动速度
+     public float PlayerSpeed = 1f;
+
+   
+    //移动方向为1上2下3左4右
+    int DirID;
+
+    //角色目标点（这里要取地图离角色最近的节点做处理）
+    private Vector2 TargetPos = Vector2.zero;
+
+     //Tilemap TailData = new Tilemap();//引用地图数据
+
+    void Awake()
+    {
+        //找到游戏主摄像机
+        GameObject Camera = GameObject.Find("Main Camera");
+        //把摄像机设为角色的子物体
+        Camera.transform.parent = transform;
+        //让摄像机移动到角色处
+        Camera.transform.localPosition = new Vector3(0, 0, -10f);
+
+        TargetPos = transform.position;
+
+        
+    }
+
+    void Update()
+    {
+
+        Vector2 p = Vector2.MoveTowards(transform.position, TargetPos ,PlayerSpeed/10);
+
+        GetComponent<Rigidbody2D>().MovePosition(p);
+
+        if ((Vector2)transform.position == TargetPos)
+        {
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+
+                foreach (Transform child in gameObject.transform)
+                {
+                    if (child.name == "stand")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_stand_up");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    }
+                    if (child.name == "run")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_run_up");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    } 
+                    if (child.name == "die")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_die_up");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    }
+                    if (child.name == "happy")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_happy_up");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    }
+                    if (child.name == "attack")
+                    {
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                        if (DirID == 1)
+                        { child.gameObject.GetComponent<Animator>().Play("RedGirl_attack_up"); }
+                        else if (DirID == 2)
+                        { child.gameObject.GetComponent<Animator>().Play("RedGirl_attack_down"); }
+                        else if (DirID == 3)
+                        { child.gameObject.GetComponent<Animator>().Play("RedGirl_attack_left"); }
+                        else if(DirID == 4)
+                        { child.gameObject.GetComponent<Animator>().Play("RedGirl_attack_right");}
+
+                        AnimatorStateInfo animatorInfo;
+
+                        animatorInfo = child.gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
+
+                        if ((animatorInfo.normalizedTime > 1) && animatorInfo.IsName("RedGirl_attack_up"))
+                             _stand(child, DirID);
+                        if ((animatorInfo.normalizedTime > 1) && animatorInfo.IsName("RedGirl_attack_down"))
+                            _stand(child, DirID);
+                        if((animatorInfo.normalizedTime > 1) && animatorInfo.IsName("RedGirl_attack_left"))
+                            _stand(child, DirID);
+                        if ((animatorInfo.normalizedTime > 1) && animatorInfo.IsName("RedGirl_attack_right"))
+                            _stand(child, DirID);
+                       
+                    }
+                }
+            }
+            if (Input.GetKey(KeyCode.W) && Valid(Vector2.up))
+            {
+               
+                Debug.Log("W");
+                TargetPos = (Vector2)transform.position + Vector2.up * 0.7f;
+                foreach (Transform child in gameObject.transform)
+                {
+                    if (child.name == "stand")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_stand_up");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    }
+                    if (child.name == "run")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_run_up");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                    }
+                    if (child.name == "attack")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_attack_up");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    }
+                    if (child.name == "die")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_die_up");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    }
+                    if (child.name == "happy")
+                    { 
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_happy_up");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    }
+                }
+                DirID = 1;   
+            }
+            if (Input.GetKey(KeyCode.D) && Valid(Vector2.right))
+            {
+                
+                Debug.Log("D");
+                TargetPos = (Vector2)transform.position + Vector2.right * 1f;
+                foreach (Transform child in gameObject.transform)
+                {
+                    if (child.name == "stand")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_stand_right");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    }
+                        
+                    if (child.name == "run")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_run_right");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                    }
+                        
+                    if (child.name == "attack")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_attack_right");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    }
+                        
+                    if (child.name == "die")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_die_right");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    }
+                        
+                    if (child.name == "happy")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_happy_right");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    }
+                }
+                DirID = 4;
+            }
+            if (Input.GetKey(KeyCode.S) && Valid(-Vector2.up))
+            {
+                
+                Debug.Log("S");
+                TargetPos = (Vector2)transform.position - Vector2.up * 0.7f;
+                foreach (Transform child in gameObject.transform)
+                {
+                    if (child.name == "stand")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_stand_down");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    }
+                    if (child.name == "run")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_run_down");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                    }
+                    if (child.name == "attack")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_attack_down");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    }
+                    if (child.name == "die")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_die_down");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    }
+                    if (child.name == "happy")
+                    { 
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_happy_down");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    }
+                }
+                DirID = 2;              
+            }
+            if (Input.GetKey(KeyCode.A) && Valid(-Vector2.right))
+            {
+                
+                Debug.Log("A");
+                TargetPos = (Vector2)transform.position - Vector2.right * 1f;
+                foreach (Transform child in gameObject.transform)
+                {
+
+                    if (child.name == "stand")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_stand_left");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    }
+                       
+                    if (child.name == "run")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_run_left");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                    }
+                        
+                    if (child.name == "attack")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_attack_left");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    }
+                       
+                    if (child.name == "die")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_die_left");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    }
+                        
+                    if (child.name == "happy")
+                    {
+                        child.gameObject.GetComponent<Animator>().Play("RedGirl_happy_left");
+                        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                    }
+                        
+                }
+                DirID = 3;   
+            }
+
+        }
+        //给方向右做一个镜像处理
+        if (DirID == 4)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+
+    }
+    bool Valid (Vector2 dir)
+    {
+        //角色目标前方一个单位距离发射一条射线到角色，检测是否射线碰撞到角色
+        Vector2 pos = transform.position;
+
+        RaycastHit2D hit = Physics2D.Linecast(pos + dir, pos);
+
+        //这里需要返回一个判断射线碰撞的是不是角色的碰撞盒，但以前的代码方式不可用，现在留空等后续补上
+        return (hit.collider == transform.GetComponent<Collider2D>());
+    }
+    // <summary>
+    /// Action中确定调用什么动作
+    /// </summary>
+    //void Action()
+    //{
+    //    //找到所有子物体
+    //    foreach (Transform child in gameObject.transform)
+    //    {
+    //        if (child.name == "stand")
+    //        {//获取子物体的精灵组件和动画组件
+    //            Animator Anm_stand = child.gameObject.GetComponent<Animator>();
+    //            SpriteRenderer Spr_stand = child.gameObject.GetComponent<SpriteRenderer>();
+    //        }
+    //        if (child.name == "run")
+    //        {//获取子物体的精灵组件和动画组件
+    //            Animator Anm_run = child.gameObject.GetComponent<Animator>();
+    //            SpriteRenderer Spr_run = child.gameObject.GetComponent<SpriteRenderer>();
+    //        }
+    //        if (child.name == "attack")
+    //        {//获取子物体的精灵组件和动画组件
+    //            Animator Anm_attack = child.gameObject.GetComponent<Animator>();
+    //            SpriteRenderer Spr_attack = child.gameObject.GetComponent<SpriteRenderer>();
+    //        }
+    //        if (child.name == "die")
+    //        {//获取子物体的精灵组件和动画组件
+    //            Animator Anm_die = child.gameObject.GetComponent<Animator>();
+    //            SpriteRenderer Spr_die = child.gameObject.GetComponent<SpriteRenderer>();
+    //        }
+    //        if (child.name == "happy")
+    //        {//获取子物体的精灵组件和动画组件
+    //            Animator Anm_happy = child.gameObject.GetComponent<Animator>();
+    //            SpriteRenderer Spr_happy = child.gameObject.GetComponent<SpriteRenderer>();
+    //        }
+
+    //    }
+    //}
+    void _stand(Transform child ,int DirID)
+    {
+        child.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+        if (DirID == 1)
+        { child.gameObject.GetComponent<Animator>().Play("RedGirl_stand_up"); }
+        else if (DirID == 2)
+        { child.gameObject.GetComponent<Animator>().Play("RedGirl_stand_down"); }
+        else if (DirID == 3)
+        { child.gameObject.GetComponent<Animator>().Play("RedGirl_stand_left"); }
+        else if (DirID == 4)
+        { child.gameObject.GetComponent<Animator>().Play("RedGirl_stand_right"); }
+        
+    }
+    
+}
+
+
