@@ -34,7 +34,7 @@ public class AILerp : VersionedMonoBehaviour {
 	 * The value is in seconds between path requests.
      * 路径请求之间的值以秒为单位。
 	 */
-    public float repathRate = 0.5F;
+    public float repathRate = 0.2F;
 
     /** Target to move towards.
      * 目标朝着。
@@ -66,29 +66,39 @@ public class AILerp : VersionedMonoBehaviour {
     public bool enableRotation = true;
 
     /** If true, rotation will only be done along the Z axis so that the Y axis is the forward direction of the character.
+     * 如果为true，则仅沿Z轴旋转，以使Y轴为角色的前进方向。
 	 * This is useful for 2D games in which one often want to have the Y axis as the forward direction to get sprites and 2D colliders to work properly.
+     * *这对于2D游戏非常有用，在这些游戏中，人们经常希望将Y轴作为前进方向，以使精灵和2D对撞机正常工作。
 	 * \shadowimage{aibase_forward_axis.png}
 	 */
     public bool rotationIn2D = false;
 
     /** How quickly to rotate */
+    /**旋转的速度有多快*/
     public float rotationSpeed = 10;
 
     /** If true, some interpolation will be done when a new path has been calculated.
-	 * This is used to avoid short distance teleportation.
-	 */
+     */
+    /** 如果为true，则在计算新路径时将进行一些插值。
+    * This is used to avoid short distance teleportation.
+    * 这用于避免短距离远距传送。
+    */
     public bool interpolatePathSwitches = true;
 
     /** How quickly to interpolate to the new path */
+    /** 插入到新路径的速度有多快 */
     public float switchPathInterpolationSpeed = 5;
 
     /** Cached Seeker component */
+    /** 缓存的搜索者组件 */
     protected Seeker seeker;
 
     /** Cached Transform component */
+    /** 缓存转换组件 */
     public Transform tr;
 
     /** Time when the last path request was sent */
+    /** 发送最后一个路径请求的时间 */
     protected float lastRepath = -9999;
 
     /** Current path which is followed */
@@ -97,14 +107,20 @@ public class AILerp : VersionedMonoBehaviour {
 
     /** True if the end-of-path is reached.
 	 * \see TargetReached */
+     /**如果到达路径终点，则为真。
+     * \请参阅TargetReached */
     public bool targetReached { get; private set; }
 
     /** Only when the previous path has been returned should be search for a new path */
+    /** 只有在返回上一个路径时才应搜索新路径 */
     protected bool canSearchAgain = true;
 
     /** When a new path was returned, the AI was moving along this ray.
+     * 当返回一条新路径时，AI正沿着这条光线移动。
 	 * Used to smoothly interpolate between the previous movement and the movement along the new path.
+     * 用于在先前的移动和沿新路径的移动之间平滑插值。
 	 * The speed is equal to movement direction.
+     * 速度等于运动方向。
 	 */
     protected Vector3 previousMovementOrigin;
     protected Vector3 previousMovementDirection;
