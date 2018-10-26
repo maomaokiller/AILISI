@@ -6,11 +6,11 @@ using UnityEngine;
 
 public static class Configuration
 {
-    //配置信息的数据结构——字典
+    //申明字典以及结构
     private static  Dictionary<string, Dictionary<string, string>> dicConfig = new Dictionary<string, Dictionary<string, string>>();
     //声明一个www
     private static WWW www;
-    //记载配置信息
+    //加载配置信息
     public static void LoadConfig()
     {
         //在StreamingAssets文件夹下的文件只能通过www方式读取
@@ -19,16 +19,17 @@ public static class Configuration
         if ( www == null)
         {
             //安卓平台需要添加一个jar：
-#if UNIT_ANDROID
+#if UNITY_ANDROID
     config = "jar:"+config;
 #endif
-            WWW www = new WWW(config);
+            www = new WWW(config);
         }
 
     }
     //检查配置信息是否加载结束
     public static bool IsDone
     {
+        
         get
         { 
             //检测是否加载完成
@@ -49,7 +50,7 @@ public static class Configuration
        return Get(mainKey, subkey);//返回字符串
 
     }
-    public static int GetLnt(string mainKey, string subkey)
+    public static int GetInt(string mainKey, string subkey)
     {
         string value = Get(mainKey, subkey);
         //判断字符是否为空如果为空返回零否则转换为int返回
@@ -87,7 +88,7 @@ public static class Configuration
         {
             //去掉字符串前后的空格
             line = line.Trim();
-            //判断如果行去掉空格不为空
+            //判断如果行为空去掉
             if (!string.IsNullOrEmpty(line))
             {
                 //检查是否是主键
@@ -108,7 +109,7 @@ public static class Configuration
                     //检查subValue是否有“”并跳过
                     subValue = subValue.StartsWith("\"") ? subValue.Substring(1) : subValue;
                     //子键的字典赋值
-                    dicConfig[mainKey].Add(subValue, subValue);
+                    dicConfig[mainKey].Add(subKey, subValue);
                 }
 
             }

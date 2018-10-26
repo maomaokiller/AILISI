@@ -8,7 +8,7 @@ public class MonsterTiAI : MonoBehaviour {
     //怪物警戒范围
     public const int AI_Distance_In = 2;
     public const int AI_Distance_out = 4;
-    // Use this for initialization
+    
     GameObject FuObject;
     void Awake () {
         Player = GameObject.FindGameObjectWithTag("Player");
@@ -26,8 +26,11 @@ public class MonsterTiAI : MonoBehaviour {
         circleCollider2D.radius =AI_Distance_In;
         gameObject.layer = 16;
     }
+    /// <summary>
+    /// 检测玩家是否跑入追击范围
+    /// </summary>
+    /// <param name="c"></param>
 
-    // Update is called once per frame
     void OnTriggerEnter2D(Collider2D c)
     {
         if (c.tag == "Player")
