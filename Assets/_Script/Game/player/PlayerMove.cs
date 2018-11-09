@@ -33,12 +33,7 @@ public class PlayerMove : MonoBehaviour
         GetComponent<CircleCollider2D>().radius = 0.3f;
         gameObject.layer = 16;
         //找到游戏主摄像机
-        GameObject Camera = GameObject.Find("Main Camera");
-        //把摄像机设为角色的子物体
-        Camera.transform.parent = transform;
-        //让摄像机移动到角色处
-        Camera.transform.localPosition = new Vector3(0, 0, -10f);
-
+        //GameObject Camera = GameObject.Find("Main Camera");       
         TargetPos = transform.position;
         //初始状态方向a：1-上  2-下  3-左  4-右
         //初始状态动作b：1-站  2-跑  3-推  4-死 5笑

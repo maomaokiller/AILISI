@@ -286,6 +286,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_Script\Editor\BuildAnimation.cs" />
+    <Compile Include="Assets\_Script\Editor\TextureImportSetting.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\AIBaseEditor.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\AnimationLinkEditor.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Editor\AstarPathEditor.cs" />
@@ -315,9 +317,6 @@
     <Compile Include="Assets\AstarPathfindingProject\Legacy\Editor\LegacyEditorHelper.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Legacy\Editor\LegacyRichAIEditor.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Legacy\Editor\LegacyRVOControllerEditor.cs" />
-    <Compile Include="Assets\IGamesTools\Editor\BuildAnimation.cs" />
-    <Compile Include="Assets\IGamesTools\Editor\IGamesTools.cs" />
-    <Compile Include="Assets\IGamesTools\Editor\TextureImportSetting.cs" />
     <Compile Include="Assets\Tilemap\Brushes\Coordinate Brush\Scripts\Editor\CoordinateBrush.cs" />
     <Compile Include="Assets\Tilemap\Brushes\GameObject Brush\Scripts\Editor\GameObjectBrush.cs" />
     <Compile Include="Assets\Tilemap\Brushes\Line Brush\Scripts\Editor\LineBrush.cs" />
@@ -342,7 +341,9 @@
     <None Include="Assets\AstarPathfindingProject\Readme.txt" />
     <None Include="Assets\AstarPathfindingProject\Readme_upgrading.txt" />
     <None Include="Assets\AstarPathfindingProject\link.xml" />
-    <None Include="Assets\StreamingAssets\cfg\Game_test.txt" />
+    <None Include="Assets\StreamingAssets\cfg\npc.txt" />
+    <None Include="Assets\StreamingAssets\cfg\rushcfg.txt" />
+    <None Include="Assets\StreamingAssets\cfg\rushcfg_1.txt" />
     <None Include="Assets\Tilemap\Brushes\Tint Brush Smooth\Shaders\TintedTilemap.shader" />
     <None Include="Assets\images\map\Background\back.shader" />
   </ItemGroup>

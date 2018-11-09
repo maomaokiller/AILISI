@@ -246,7 +246,9 @@
     <None Include="Assets\AstarPathfindingProject\Readme.txt" />
     <None Include="Assets\AstarPathfindingProject\Readme_upgrading.txt" />
     <None Include="Assets\AstarPathfindingProject\link.xml" />
-    <None Include="Assets\StreamingAssets\cfg\Game_test.txt" />
+    <None Include="Assets\StreamingAssets\cfg\npc.txt" />
+    <None Include="Assets\StreamingAssets\cfg\rushcfg.txt" />
+    <None Include="Assets\StreamingAssets\cfg\rushcfg_1.txt" />
     <None Include="Assets\Tilemap\Brushes\Tint Brush Smooth\Shaders\TintedTilemap.shader" />
     <None Include="Assets\images\map\Background\back.shader" />
   </ItemGroup>

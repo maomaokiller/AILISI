@@ -236,10 +236,15 @@
   <ItemGroup>
     <Compile Include="Assets\_Script\Engine\define\LayerDefine.cs" />
     <Compile Include="Assets\_Script\Engine\define\TagsDefine.cs" />
+    <Compile Include="Assets\_Script\Game\Camera\CameraControl.cs" />
     <Compile Include="Assets\_Script\Game\candy_box\Candy_box.cs" />
     <Compile Include="Assets\_Script\Game\candy_box\FindMonster.cs" />
+    <Compile Include="Assets\_Script\Game\cfg\base\NpcCfgMgr.cs" />
+    <Compile Include="Assets\_Script\Game\cfg\base\RushCfgMgr.cs" />
     <Compile Include="Assets\_Script\Game\cfg\Configuration.cs" />
     <Compile Include="Assets\_Script\Game\cfg\Loadcfg.cs" />
+    <Compile Include="Assets\_Script\Game\cfg\npccfgBase.cs" />
+    <Compile Include="Assets\_Script\Game\managers\AirWallManager\AirWallManager.cs" />
     <Compile Include="Assets\_Script\Game\managers\base\MgrBase.cs" />
     <Compile Include="Assets\_Script\Game\managers\CandyManager\CandyManager.cs" />
     <Compile Include="Assets\_Script\Game\managers\ChangjingManager\Zhuangshi_Manager.cs" />
@@ -258,6 +263,7 @@
     <Compile Include="Assets\_Script\Game\Start\ButtonAudio.cs" />
     <Compile Include="Assets\_Script\Game\Start\Game_manager.cs" />
     <Compile Include="Assets\_Script\Game\Start\StartGame.cs" />
+    <Compile Include="Assets\_Script\map\BgControll.cs" />
     <Compile Include="Assets\_Script\music\skill\skillSound.cs" />
     <Compile Include="Assets\AstarPathfindingProject\changelog.cs" />
     <Compile Include="Assets\AstarPathfindingProject\Core\AI\AIBase.cs" />
@@ -437,7 +443,9 @@
     <None Include="Assets\AstarPathfindingProject\Readme.txt" />
     <None Include="Assets\AstarPathfindingProject\Readme_upgrading.txt" />
     <None Include="Assets\AstarPathfindingProject\link.xml" />
-    <None Include="Assets\StreamingAssets\cfg\Game_test.txt" />
+    <None Include="Assets\StreamingAssets\cfg\npc.txt" />
+    <None Include="Assets\StreamingAssets\cfg\rushcfg.txt" />
+    <None Include="Assets\StreamingAssets\cfg\rushcfg_1.txt" />
     <None Include="Assets\Tilemap\Brushes\Tint Brush Smooth\Shaders\TintedTilemap.shader" />
     <None Include="Assets\images\map\Background\back.shader" />
   </ItemGroup>
